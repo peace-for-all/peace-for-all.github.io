@@ -1,5 +1,6 @@
 .lighthouseci/
 node_modules/
+Profile.pdf
 assets/coast-*.avif
 assets/coast-*.webp
 assets/coast-*.jpg
