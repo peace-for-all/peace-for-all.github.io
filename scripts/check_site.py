@@ -73,7 +73,7 @@ for path in ROOT.glob("case-studies/*.html"):
 if sorted(trace_ids) != ["1", "2", "3", "4"]: errors.append(f"trace ids must be exactly 1–4; found {trace_ids}")
 after_hours = ROOT / "after-hours.html"
 if not after_hours.exists(): errors.append("after-hours.html: missing")
-elif not all(fragment in after_hours.read_text(encoding="utf-8") for fragment in ['href="/#work"', 'href="/#contact"']): errors.append("after-hours.html: missing work/contact links")
+elif not all(fragment in after_hours.read_text(encoding="utf-8") for fragment in ['href="/#projects"', 'href="/#contact"']): errors.append("after-hours.html: missing projects/contact links")
 placeholder_files = [p.relative_to(ROOT) for p in ROOT.rglob("*") if p.is_file() and p.suffix in {".html", ".xml", ".txt", ".svg", ".md"} and re.search(r"YOUR-(?:GITHUB-HANDLE|PROFESSIONAL-EMAIL)|YOUR NAME", p.read_text(encoding="utf-8", errors="ignore"))]
 print(f"Checked {len(HTML)} HTML pages; CSS is {css.stat().st_size} bytes.")
 if placeholder_files: errors.append("publication placeholders remain in: " + ", ".join(map(str, placeholder_files)))
