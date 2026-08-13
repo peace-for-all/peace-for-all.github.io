@@ -7,7 +7,7 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = "/peace-for-all/"
+BASE = "/"
 HTML = sorted(ROOT.rglob("*.html"))
 errors = []
 

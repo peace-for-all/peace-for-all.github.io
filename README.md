@@ -1,6 +1,6 @@
 # Valya Unixway — portfolio
 
-A hand-authored static portfolio published with GitHub Pages at <https://peace-for-all.github.io/peace-for-all/>.
+A hand-authored static portfolio published with GitHub Pages at <https://peace-for-all.github.io/>.
 
 The site uses semantic HTML and one shared CSS file, with no JavaScript, analytics, cookies, remote fonts, or third-party embeds.
 
@@ -11,7 +11,7 @@ python3 scripts/check_site.py
 python3 -m http.server 8000
 ```
 
-Because this is a project Pages repository, links use the `/peace-for-all/` prefix. To preview exact paths, serve the directory containing this repository and open `http://localhost:8000/peace-for-all/`.
+This is configured as an account-level GitHub Pages site, so the GitHub repository must be named exactly `peace-for-all.github.io`. Links use the site-root `/` prefix. For a local preview, serve this repository and open `http://localhost:8000/`.
 
 ## Remaining content review
 
@@ -23,4 +23,4 @@ Before treating the site as final:
 4. Export `assets/social-preview.svg` as a 1200×630 JPEG or PNG for broad crawler support, and update `og:image`.
 5. Add Play, F-Droid, or source links only when each destination is public and reviewed. After Play publication, cross-link the site and Google Play Developer Profile.
 
-The included workflow validates and deploys every push to `main`. In repository **Settings → Pages**, set **Source** to **GitHub Actions** once if it is not already selected.
+The included workflow validates and deploys every push to `main`. After renaming the repository, set **Settings → Pages → Source** to **GitHub Actions** once if it is not already selected.
