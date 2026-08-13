@@ -1,18 +1,18 @@
-import { TRACE_KEY, complete, parse, clueState } from "./vw-core.js";
+import { TRACE_KEY, complete, parse, clueState } from "./command-core.js";
 
 const ROUTES = {
-  "vw about": ["/#about", "I like difficult problems, real ownership, and systems people can trust."],
-  "vw work": ["/#work", "Four case files: VoiceGuides, review-system, Earned, and EcoWatch."],
-  "vw inspect voiceguides": ["/case-studies/voiceguides.html", "Opening VOICEGUIDES(1)…"],
-  "vw inspect review-system": ["/case-studies/review-response.html", "Opening REVIEW-SYSTEM(1)…"],
-  "vw inspect earned": ["/case-studies/earned.html", "Opening EARNED(1)…"],
-  "vw inspect ecowatch": ["/case-studies/ecowatch.html", "Opening ECOWATCH(1)…"],
-  "vw history": ["/#history", "10+ years · monitoring · backend · automation · data · Android · production systems"],
-  "vw approach": ["/#approach", "Short loops. Candid trade-offs. Inspectable systems. Calm diagnosis."],
-  "vw collaborate": ["/#collaborate", "Useful problems, shared ownership, sharp and kind teammates."],
-  "vw contact": ["/#contact", "email  valjaer@gmail.com\ntelegram  @walsk"],
-  "vw open coast.jpg": ["/#coast", "Opening coast.jpg…"],
-  "vw after-hours": ["/after-hours.html", "Opening the non-essential night shift…"]
+  "about": ["/#about", "I like difficult problems, real ownership, and systems people can trust."],
+  "work": ["/#work", "Four case files: VoiceGuides, review-system, Earned, and EcoWatch."],
+  "inspect voiceguides": ["/case-studies/voiceguides.html", "Opening VOICEGUIDES(1)…"],
+  "inspect review-system": ["/case-studies/review-response.html", "Opening REVIEW-SYSTEM(1)…"],
+  "inspect earned": ["/case-studies/earned.html", "Opening EARNED(1)…"],
+  "inspect ecowatch": ["/case-studies/ecowatch.html", "Opening ECOWATCH(1)…"],
+  "history": ["/#history", "10+ years · monitoring · backend · automation · data · Android · production systems"],
+  "approach": ["/#approach", "Short loops. Candid trade-offs. Inspectable systems. Calm diagnosis."],
+  "collaborate": ["/#collaborate", "Useful problems, shared ownership, sharp and kind teammates."],
+  "contact": ["/#contact", "email  valjaer@gmail.com\ntelegram  @walsk"],
+  "open coast.jpg": ["/#coast", "Opening coast.jpg…"],
+  "after-hours": ["/after-hours.html", "Opening the non-essential night shift…"]
 };
 
 function readTraces() {
@@ -71,11 +71,11 @@ function execute(value) {
   if (parsed.type === "clear") { output.replaceChildren(); return; }
   if (parsed.type === "reset") { resetTraces(); result(parsed.command, "Trace progress cleared from this browser."); return; }
   if (parsed.type === "text") { result(parsed.command, parsed.text); return; }
-  if (parsed.type === "unknown") { result(parsed.command, "vw: command not found. Try 'vw help'.\nThe machine is less offended than it looks."); return; }
-  if (parsed.command === "vw help") {
-    result(parsed.command, "about · work · inspect <project> · history · approach · contact\nopen coast.jpg · clues · after-hours · reset clues · clear\nAliases: help, man vw, whoami, ls, pwd, cat coast.jpg\nTrace progress uses only local browser storage (vw.trace.v1) and is never transmitted."); return;
+  if (parsed.type === "unknown") { result(parsed.command, "command not found. Try 'help'.\nThe machine is less offended than it looks."); return; }
+  if (parsed.command === "help") {
+    result(parsed.command, "about · work · inspect <project> · history · approach · contact\nopen coast.jpg · clues · after-hours · reset clues · clear\nAliases: man valia, whoami, ls, pwd, cat coast.jpg\nTrace progress uses only local browser storage (valia.trace.v1) and is never transmitted."); return;
   }
-  if (parsed.command === "vw clues") {
+  if (parsed.command === "clues") {
     const state = clueState(readTraces());
     result(parsed.command, state.complete ? "4/4 traces found. Continue to /after-hours.html" : `${state.found.length}/4 traces found. ${state.remaining} remain.`, state.complete ? "/after-hours.html" : undefined); return;
   }
