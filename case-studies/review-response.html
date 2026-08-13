@@ -1,37 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Review-response system — Valia Walsk</title>
-  <meta name="description" content="An anonymized case study of reliable human-in-the-loop production software.">
-  <link rel="canonical" href="https://peace-for-all.github.io/case-studies/review-response.html">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/site.css">
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-  <header><nav class="wrap" aria-label="Primary"><a class="name" href="/">Valia Walsk</a><ul><li><a href="/#portfolio">Portfolio</a></li><li><a href="/#approach">Approach</a></li><li><a href="/#contact">Contact</a></li></ul></nav></header>
-  <main id="main" class="wrap"><article class="measure prose">
-    <p class="eyebrow">Case study · Production internal software</p>
-    <h1>Anonymized review-response system</h1>
-    <p class="lede">A working team needed a steadier way to prepare public replies while keeping a person responsible for every response.</p>
-    <dl class="facts"><div><dt>For</dt><dd>An operational team</dd></div><div><dt>Shape</dt><dd>Internal production system</dd></div><div><dt>Boundary</dt><dd>Human review before use</dd></div></dl>
-    <h2>The nuisance</h2>
-    <p>Incoming reviews vary in tone and context, yet each deserves a timely, specific response. Repetition consumes attention; hurried templates can sound indifferent and miss details that require care.</p>
-    <h2>What became clear</h2>
-    <p>The initial automation opportunity looked like text generation. The awkward discovery was that drafting was only one step. Context selection, exceptions, review, failure visibility, and a clear handoff to a responsible person were the real system.</p>
-    <h2>Decisions</h2>
-    <p>The software separates marketplace ingestion, draft preparation, operator review, and release. Language-model assistance is bounded as a drafting tool. Deterministic rules, versioned business instructions, validation, dry-run controls, and explicit write gates surround the parts that can affect a customer.</p>
-    <p>The operator dashboard makes queue state, draft provenance, safety findings, retries, and failures visible. Unattended paths fail closed; unusual or negative cases remain with people rather than being forced through a happy-path template.</p>
-    <h2>What works now</h2>
-    <p>The internal system operates in production. It ingests marketplace reviews and questions, routes work to operators, prepares constrained drafts, supports review and correction, and posts only through controlled paths. Health checks, audit records, and emergency pauses make operational behaviour inspectable.</p>
-    <h2>Status and limits</h2>
-    <p>It remains internal software tied to a particular workflow. Generated text can be wrong, tonally unsuitable, or insensitive to context; human approval and conservative automation gates are product requirements, not temporary safeguards. No unsupported performance or business-outcome figures are claimed here.</p>
-    <h2>Technology, where it matters</h2>
-    <p>Python, a lightweight operator dashboard, marketplace APIs, Telegram routing, persistent audit state, and LLM/vision services form a maintainable pipeline around human judgment. The important architecture is not the model call; it is the observable, reversible system around it. Vendor, client, prompts, credentials, volumes, screenshots, and infrastructure details are intentionally omitted.</p>
-    <p class="note">This case is anonymized to protect a client and its operations. There is no public source or product link.</p>
-  </article></main>
-  <footer><div class="wrap"><span>© 2026 Valia Walsk</span><a href="/">All work</a></div></footer>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Review-response system case file — Valia Walsk</title><meta name="description" content="An anonymized Python human-in-the-loop production system with explicit write gates."><link rel="canonical" href="https://peace-for-all.github.io/case-studies/review-response.html"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/site.css"><script type="module" src="/assets/console.js"></script></head><body><a class="skip-link" href="#main">Skip to main content</a><header><nav class="wrap" aria-label="Primary"><a class="name" href="/">valia@coast:~</a><ul><li><a href="/#work">work</a></li><li><a href="/#contact">contact</a></li></ul></nav></header><main id="main" class="wrap"><article class="casefile"><p class="manual-name">REVIEW-SYSTEM(1) · anonymized case file · production internal software</p><h1>Review-response system</h1><p class="lede">Constrained drafting inside an observable, reversible operator workflow—not a text generator left alone with the keys.</p><dl class="case-meta"><div><dt>stack</dt><dd>Python · operator dashboard · APIs · persistent audit state</dd></div><div><dt>boundary</dt><dd>a responsible person controls every public response</dd></div></dl>
+<h2 id="pipeline">pipeline</h2><p>Marketplace input, context selection, draft preparation, operator review, and release remain separate stages. Language-model assistance is bounded to drafting; versioned business rules and deterministic checks surround it.</p><div class="evidence">ingest → classify → constrained draft → validate → operator → controlled write<br>exception → human queue &nbsp; failure → visible state</div>
+<h2 id="operator-boundary">operator-boundary</h2><p>Unusual, negative, or sensitive cases remain with people. The dashboard shows provenance and safety findings so review means informed control rather than clicking through opaque output.</p>
+<h2 id="write-gates">write-gates</h2><p>Dry-run controls exercise the pipeline without public effects. Explicit write gates and fail-closed checks prevent an uncertain unattended path from becoming a customer-facing action.</p>
+<details class="trace" data-trace="2"><summary>[trace 2/4] inspect emergency state</summary><p>During trouble, the most important “model” may be the emergency-pause state.</p></details>
+<h2 id="observe">observe</h2><p>Queue state, draft provenance, rule versions, validation findings, retries, failures, and audit records make operational behaviour inspectable.</p>
+<h2 id="recover">recover</h2><p>Emergency pause stops outbound action. Durable state supports diagnosis and controlled retry without pretending partial failures did not happen.</p>
+<h2 id="status">status</h2><p>The internal system operates in production within one specific workflow. Generated text can still be wrong or unsuitable; human control is a requirement, not a temporary safeguard. Client identity, prompts, credentials, volumes, infrastructure, and outcome figures are intentionally omitted.</p><p><a class="return-command" href="/#work">$ vw work</a></p></article></main><footer><div class="wrap"><span>© 2026 Valia Walsk</span><span>Trace progress is local-only: <code>vw.trace.v1</code>.</span><a href="/#contact">contact</a></div></footer></body></html>

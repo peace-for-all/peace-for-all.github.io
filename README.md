@@ -2,12 +2,13 @@
 
 A hand-authored static portfolio for a product-minded software engineer whose work crosses Android, backend, and production systems, published with GitHub Pages at <https://peace-for-all.github.io/>.
 
-The site uses semantic HTML and one shared CSS file, with no JavaScript, analytics, cookies, remote fonts, or third-party embeds.
+The site uses semantic HTML, one shared CSS file, and a dependency-free ES-module console. It has no analytics, cookies, remote fonts, or third-party embeds. Trace progress is the only persistent state; it stays in local browser storage under `vw.trace.v1`.
 
 ## Local verification
 
 ```sh
 python3 scripts/check_site.py
+node tests/vw-core.test.mjs
 python3 -m http.server 8000
 ```
 
