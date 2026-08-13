@@ -1,4 +1,4 @@
-# Valya Unixway — portfolio
+# Valia Walsk — portfolio
 
 A hand-authored static portfolio published with GitHub Pages at <https://peace-for-all.github.io/>.
 
