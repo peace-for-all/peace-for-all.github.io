@@ -1,0 +1,6 @@
+.lighthouseci/
+node_modules/
+assets/coast-*.avif
+assets/coast-*.webp
+assets/coast-*.jpg
+!assets/social-preview.svg
