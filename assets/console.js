@@ -99,3 +99,13 @@ document.querySelectorAll("[data-command]").forEach(control => control.addEventL
   // Real links keep their native navigation; controls without destinations print output.
   if (control.tagName === "BUTTON") { reveal(false); execute(control.dataset.command); }
 }));
+
+document.querySelectorAll("[data-copy]").forEach(button => button.addEventListener("click", async () => {
+  const status = document.querySelector("#copy-status");
+  try {
+    await navigator.clipboard.writeText(button.dataset.copy);
+    if (status) status.textContent = "Copied. Choose a channel and make it yours.";
+  } catch {
+    if (status) status.textContent = "Copy was unavailable; select the message above instead.";
+  }
+}));
