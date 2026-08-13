@@ -8,7 +8,6 @@ const ROUTES = {
   "inspect review-system": ["/case-studies/review-response.html", "Opening REVIEW-SYSTEM(1)…"],
   "inspect earned": ["/case-studies/earned.html", "Opening EARNED(1)…"],
   "inspect ecowatch": ["/case-studies/ecowatch.html", "Opening ECOWATCH(1)…"],
-  "approach": ["/#approach", "Short loops. Candid trade-offs. Inspectable systems. Calm diagnosis."],
   "contact": ["/#contact", "email  valjaer@gmail.com\ntelegram  @walsk"],
   "open coast.jpg": ["/#coast", "Opening coast.jpg…"],
   "after-hours": ["/after-hours.html", "Opening the non-essential night shift…"]
@@ -72,7 +71,7 @@ function execute(value) {
   if (parsed.type === "text") { result(parsed.command, parsed.text); return; }
   if (parsed.type === "unknown") { result(parsed.command, "command not found. Try 'help'.\nThe machine is less offended than it looks."); return; }
   if (parsed.command === "help") {
-    result(parsed.command, "experience · projects · inspect <project> · contact\napproach · open coast.jpg · clues · after-hours · reset clues · clear\nAliases: history, work, ls, man valia, whoami, pwd, cat coast.jpg\nTrace progress uses only local browser storage (valia.trace.v1) and is never transmitted."); return;
+    result(parsed.command, "experience · projects · inspect <project> · contact\nopen coast.jpg · clues · after-hours · reset clues · clear\nAliases: history, work, ls, man valia, whoami, pwd, cat coast.jpg\nTrace progress uses only local browser storage (valia.trace.v1) and is never transmitted."); return;
   }
   if (parsed.command === "clues") {
     const state = clueState(readTraces());
