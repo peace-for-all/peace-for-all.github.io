@@ -1,6 +1,6 @@
 # Valia Walsk — portfolio
 
-A hand-authored static portfolio for an Android and product-systems engineer, published with GitHub Pages at <https://peace-for-all.github.io/>.
+A hand-authored static portfolio for an Android, product, and production-systems engineer, published with GitHub Pages at <https://peace-for-all.github.io/>.
 
 The site uses semantic HTML and one shared CSS file, with no JavaScript, analytics, cookies, remote fonts, or third-party embeds.
 
