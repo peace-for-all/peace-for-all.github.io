@@ -64,6 +64,10 @@ section::before { content: ""; display: block; width: min(9rem, 30vw); margin-to
 .facts dd { margin: .2rem 0 0; }
 .note { margin: 2rem 0; padding: 1.25rem; border-left: 3px solid var(--sea); background: var(--paper-deep); }
 .contact { font-family: var(--serif); font-size: clamp(1.25rem, 3vw, 1.7rem); }
+.contact-links { display: grid; gap: .65rem; margin: 1.75rem 0 0; padding: 0; list-style: none; }
+.contact-links li { display: flex; flex-wrap: wrap; gap: .25rem .75rem; align-items: baseline; }
+.contact-links a { min-width: 5.5rem; font-weight: 700; }
+.contact-links span { color: var(--muted); }
 footer { padding-block: 2rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
 footer .wrap { display: flex; justify-content: space-between; gap: 1rem; }
 code { font-size: .9em; }
