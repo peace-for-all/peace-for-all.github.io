@@ -85,11 +85,11 @@ if sorted(catalog_ids) != sorted(index_page.project_ids): errors.append(f"WebMCP
 for url in catalog_urls:
     if not (ROOT / url.lstrip("/")).exists(): errors.append(f"WebMCP catalog has broken URL: {url}")
 conversation_source = (ROOT / "assets/conversation.js").read_text(encoding="utf-8") + (ROOT / "assets/conversation-core.js").read_text(encoding="utf-8")
-for marker in ["open_teamwork_icebreaker", "draft_conversation_card", "discard_conversation_card"]:
+for marker in ["open_teamwork_icebreaker", "continue_teamwork_icebreaker", "connect_published_work", "draft_conversation_card", "reset_diary"]:
     if marker not in conversation_source: errors.append(f"conversation WebMCP tool missing: {marker}")
 for forbidden in ["localStorage", "sessionStorage", "fetch(", "XMLHttpRequest", "sendBeacon"]:
     if forbidden in conversation_source: errors.append(f"conversation rehearsal must remain ephemeral; found {forbidden}")
-for marker in ['id="rehearse"', 'id="conversation-card"', 'src="/assets/conversation.js"']:
+for marker in ['id="diary"', 'id="conversation-card"', 'src="/assets/conversation.js"', '?view=all#about']:
     if marker not in (ROOT / "index.html").read_text(encoding="utf-8"): errors.append(f"homepage conversation marker missing: {marker}")
 print(f"Checked {len(HTML)} HTML pages; CSS is {css.stat().st_size} bytes.")
 if placeholder_files: errors.append("publication placeholders remain in: " + ", ".join(map(str, placeholder_files)))

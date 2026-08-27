@@ -4,6 +4,11 @@ import { createToolDefinitions, matchProjects } from "./webmcp-core.js";
 
 function showRelevantWork(focus) {
   const matches = matchProjects(focus);
+  const compactMatches = matches.map(({ id, title, url, matchedFocus, evidence }) => ({ id, title, url, matchedFocus, evidence }));
+  if (document.documentElement.classList.contains("diary-mode")) {
+    document.dispatchEvent(new CustomEvent("diary:portfolio-matches", { detail: { matches: compactMatches } }));
+    return { requestedFocus: focus, matches: compactMatches, presentation: "diary_fragment" };
+  }
   document.querySelectorAll("[data-project]").forEach(card => {
     card.classList.toggle("agent-match", matches.some(project => project.id === card.dataset.project));
   });
@@ -19,7 +24,8 @@ function showRelevantWork(focus) {
 
   return {
     requestedFocus: focus,
-    matches: matches.map(({ id, title, url, matchedFocus, evidence }) => ({ id, title, url, matchedFocus, evidence })),
+    matches: compactMatches,
+    presentation: "portfolio_highlight",
   };
 }
 

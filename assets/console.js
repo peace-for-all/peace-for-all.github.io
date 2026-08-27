@@ -4,7 +4,7 @@ const ROUTES = {
   "about": ["/#about", "I like difficult problems, real ownership, and systems people can trust."],
   "experience": ["/#experience", "10+ years · monitoring · backend · automation · data · Android · production systems"],
   "projects": ["/#projects", "Four case files: VoiceGuides, review-system, Earned, and EcoWatch."],
-  "rehearse hello": ["/#rehearse", "No problem statement required. Pick a familiar kind of mess."],
+  "rehearse hello": ["/", "Opening the living diary. No problem statement required."],
   "inspect voiceguides": ["/case-studies/voiceguides.html", "Opening VOICEGUIDES(1)…"],
   "inspect review-system": ["/case-studies/review-response.html", "Opening REVIEW-SYSTEM(1)…"],
   "inspect earned": ["/case-studies/earned.html", "Opening EARNED(1)…"],
