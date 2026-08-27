@@ -1,4 +1,4 @@
-import { EVIDENCE, createSupportCaseToolDefinitions, evaluateAssessment, fieldNote, normalizeSources } from "./support-case-core.js";
+import { EVIDENCE, assessmentNeedsReview, createSupportCaseToolDefinitions, evaluateAssessment, fieldNote, normalizeSources } from "./support-case-core.js";
 
 const revealed = new Set();
 
@@ -24,12 +24,21 @@ function updateEvidence(source) {
     noteElement.hidden = !note;
     noteElement.textContent = note;
   }
+  const assessment = document.querySelector("#case-assessment:not([hidden])");
+  const assessedSources = assessment?.dataset.assessedSources ? JSON.parse(assessment.dataset.assessedSources) : [];
+  const assessmentStale = Boolean(assessment && assessmentNeedsReview(assessedSources, [...revealed]));
+  if (assessmentStale) {
+    assessment.dataset.status = "needs_review";
+    document.querySelector("#assessment-verdict").textContent = "New evidence arrived—this assessment needs review.";
+    document.querySelector("#assessment-note").textContent = "The map changed. Reassess before relying on the old conclusion.";
+  }
   return {
     source,
     fact: evidence.fact,
     revealedSources: normalizeSources([...revealed]),
     remainingSources: Object.keys(EVIDENCE).filter(key => !revealed.has(key)),
     fieldNote: note || undefined,
+    assessmentState: assessmentStale ? "needs_review" : undefined,
     note: "This evidence was also revealed in the shared page.",
   };
 }
@@ -43,12 +52,13 @@ function showAssessment(input) {
   if (panel && verdict && rationale && note) {
     panel.hidden = false;
     panel.dataset.status = result.status;
+    panel.dataset.assessedSources = JSON.stringify(result.revealedSources);
     verdict.textContent = result.feedback;
     rationale.textContent = result.rationale ? `Agent reasoning: ${result.rationale}` : "";
     note.textContent = result.note;
     panel.scrollIntoView({ block: "nearest" });
   }
-  return { ...result, note: "The assessment is visible on the shared page. It does not authorize or send a customer response." };
+  return { ...result, authorityNote: "The assessment is visible on the shared page. It does not authorize or send a customer response." };
 }
 
 document.querySelectorAll("[data-reveal-evidence]").forEach(button => {

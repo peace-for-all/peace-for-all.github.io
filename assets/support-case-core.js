@@ -5,7 +5,7 @@ export const EVIDENCE = {
   },
   incident_log: {
     label: "incident log",
-    fact: "A fulfilment outage overlapped the order's expected journey.",
+    fact: "A fulfilment outage affected the marketplace during the relevant period.",
   },
   support_chat: {
     label: "support chat",
@@ -26,6 +26,12 @@ export function fieldNote(sources) {
   if (revealed.length === 1 && revealed[0] === "support_chat") return "A public question after a silent private channel is rarely just a product question.";
   if (revealed.length === 2 && !revealed.includes("order_record")) return "We have a failure and an escalation, but not yet the object connecting them.";
   return "";
+}
+
+export function assessmentNeedsReview(assessedSources, currentSources) {
+  const assessed = normalizeSources(assessedSources);
+  const current = normalizeSources(currentSources);
+  return assessed.length !== current.length || assessed.some(source => !current.includes(source));
 }
 
 export function evaluateAssessment({ interpretation, rationale = "", revealedSources = [] }) {
