@@ -6,6 +6,8 @@ The site uses semantic HTML, one shared CSS file, and a dependency-free ES-modul
 
 The home page exposes two progressive WebMCP site tools to compatible browser agents: one highlights case studies by engineering focus, and one operates the existing visible console. The review-response case file adds a shared investigation: an agent can reveal connected evidence for an ambiguous marketplace message and place a non-authoritative assessment on the same page the visitor sees. All tools reuse public client-side data and existing UI behavior; no model, account, API key, or remote MCP server is part of the site. Browsers without WebMCP support retain manual controls and the full written case study.
 
+The [WebMCP Challenge submission notes](challenge/WEBMCP_CHALLENGE.md) contain the judge journey, under-three-minute demo script, draft submission description, and completion checklist.
+
 ## Local verification
 
 ```sh
