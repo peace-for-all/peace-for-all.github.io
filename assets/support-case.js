@@ -1,4 +1,4 @@
-import { EVIDENCE, createSupportCaseToolDefinitions, evaluateAssessment, normalizeSources } from "./support-case-core.js";
+import { EVIDENCE, createSupportCaseToolDefinitions, evaluateAssessment, fieldNote, normalizeSources } from "./support-case-core.js";
 
 const revealed = new Set();
 
@@ -18,11 +18,18 @@ function updateEvidence(source) {
   }
   const status = document.querySelector("#case-status");
   if (status) status.textContent = `${revealed.size}/3 connected sources inspected.`;
+  const note = fieldNote([...revealed]);
+  const noteElement = document.querySelector("#case-field-note");
+  if (noteElement) {
+    noteElement.hidden = !note;
+    noteElement.textContent = note;
+  }
   return {
     source,
     fact: evidence.fact,
     revealedSources: normalizeSources([...revealed]),
     remainingSources: Object.keys(EVIDENCE).filter(key => !revealed.has(key)),
+    fieldNote: note || undefined,
     note: "This evidence was also revealed in the shared page.",
   };
 }
@@ -32,11 +39,13 @@ function showAssessment(input) {
   const panel = document.querySelector("#case-assessment");
   const verdict = document.querySelector("#assessment-verdict");
   const rationale = document.querySelector("#assessment-rationale");
-  if (panel && verdict && rationale) {
+  const note = document.querySelector("#assessment-note");
+  if (panel && verdict && rationale && note) {
     panel.hidden = false;
     panel.dataset.status = result.status;
     verdict.textContent = result.feedback;
     rationale.textContent = result.rationale ? `Agent reasoning: ${result.rationale}` : "";
+    note.textContent = result.note;
     panel.scrollIntoView({ block: "nearest" });
   }
   return { ...result, note: "The assessment is visible on the shared page. It does not authorize or send a customer response." };

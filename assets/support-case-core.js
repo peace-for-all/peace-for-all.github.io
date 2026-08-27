@@ -19,6 +19,15 @@ export function normalizeSources(sources) {
   return [...new Set(sources)].filter(source => Object.hasOwn(EVIDENCE, source));
 }
 
+export function fieldNote(sources) {
+  const revealed = normalizeSources(sources);
+  if (revealed.length === 3) return "Three systems later, the six-word question has acquired a plot.";
+  if (revealed.length === 1 && revealed[0] === "incident_log") return "Good instinct. Incidents are context, though—not yet a verdict.";
+  if (revealed.length === 1 && revealed[0] === "support_chat") return "A public question after a silent private channel is rarely just a product question.";
+  if (revealed.length === 2 && !revealed.includes("order_record")) return "We have a failure and an escalation, but not yet the object connecting them.";
+  return "";
+}
+
 export function evaluateAssessment({ interpretation, rationale = "", revealedSources = [] }) {
   if (!INTERPRETATIONS.includes(interpretation)) throw new TypeError(`Unknown interpretation: ${interpretation}`);
   const sources = normalizeSources(revealedSources);
@@ -38,7 +47,14 @@ export function evaluateAssessment({ interpretation, rationale = "", revealedSou
       : "Possible, but still premature. Inspect the remaining sources before treating it as fact.";
   }
 
-  return { interpretation, rationale: String(rationale).trim(), revealedSources: sources, evidenceComplete: complete, status, feedback };
+  const note = status === "contradicted_by_evidence"
+    ? "The template is fluent. Unfortunately, reality has filed an objection."
+    : status === "honest_abstention"
+      ? "Abstention accepted. The machine survives not knowing something."
+      : status === "supported"
+        ? "Case closed. No customer response was harmed in the making of this assessment."
+        : "";
+  return { interpretation, rationale: String(rationale).trim(), revealedSources: sources, evidenceComplete: complete, status, feedback, note };
 }
 
 export function createSupportCaseToolDefinitions({ revealEvidence, submitAssessment }) {
