@@ -4,6 +4,8 @@ A hand-authored static portfolio for a product-minded software engineer whose wo
 
 The site uses semantic HTML, one shared CSS file, and a dependency-free ES-module console. It has no analytics, cookies, remote fonts, or third-party embeds. Trace progress is the only persistent state; it stays in local browser storage under `valia.trace.v1`.
 
+The home page also exposes two progressive WebMCP site tools to compatible browser agents: one highlights case studies by engineering focus, and one operates the existing visible console. They reuse public client-side data and existing UI behavior; no model, account, API key, or remote MCP server is part of the site. Browsers without WebMCP support receive the unchanged portfolio experience.
+
 ## Local verification
 
 ```sh

@@ -18,6 +18,7 @@ class Page(HTMLParser):
         self.images = []
         self.scripts = []
         self.command_targets = []
+        self.project_ids = []
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if "id" in a:
@@ -29,6 +30,7 @@ class Page(HTMLParser):
         if tag == "img": self.images.append(a)
         if tag == "script" and "src" in a: self.scripts.append(a["src"])
         if "data-command" in a and tag == "a": self.command_targets.append(a.get("href", ""))
+        if "data-project" in a: self.project_ids.append(a["data-project"])
 
 for path in HTML:
     page = Page()
@@ -75,6 +77,13 @@ after_hours = ROOT / "after-hours.html"
 if not after_hours.exists(): errors.append("after-hours.html: missing")
 elif not all(fragment in after_hours.read_text(encoding="utf-8") for fragment in ['href="/#projects"', 'href="/#contact"']): errors.append("after-hours.html: missing projects/contact links")
 placeholder_files = [p.relative_to(ROOT) for p in ROOT.rglob("*") if p.is_file() and p.suffix in {".html", ".xml", ".txt", ".svg", ".md"} and re.search(r"YOUR-(?:GITHUB-HANDLE|PROFESSIONAL-EMAIL)|YOUR NAME", p.read_text(encoding="utf-8", errors="ignore"))]
+catalog = (ROOT / "assets/webmcp-core.js").read_text(encoding="utf-8")
+catalog_ids = re.findall(r'^\s+id: "([^"]+)",$', catalog, re.MULTILINE)
+catalog_urls = re.findall(r'^\s+url: "([^"]+)",$', catalog, re.MULTILINE)
+index_page = Page(); index_page.feed((ROOT / "index.html").read_text(encoding="utf-8"))
+if sorted(catalog_ids) != sorted(index_page.project_ids): errors.append(f"WebMCP catalog ids do not match project cards: {catalog_ids} vs {index_page.project_ids}")
+for url in catalog_urls:
+    if not (ROOT / url.lstrip("/")).exists(): errors.append(f"WebMCP catalog has broken URL: {url}")
 print(f"Checked {len(HTML)} HTML pages; CSS is {css.stat().st_size} bytes.")
 if placeholder_files: errors.append("publication placeholders remain in: " + ", ".join(map(str, placeholder_files)))
 if errors:

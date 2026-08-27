@@ -42,7 +42,7 @@ if (disclosure && matchMedia("(hover: hover) and (pointer: fine) and (min-width:
   disclosure.open = true;
 }
 
-function reveal(focus = false) {
+export function reveal(focus = false) {
   if (!disclosure) return;
   disclosure.open = true;
   if (focus) requestAnimationFrame(() => input?.focus({ preventScroll: false }));
@@ -62,23 +62,26 @@ function result(command, content, href) {
   block.scrollIntoView({ block: "nearest" });
 }
 
-function execute(value) {
+export function execute(value) {
   const parsed = parse(value);
-  if (parsed.type === "empty") return;
+  if (parsed.type === "empty") return { ok: false, command: "", text: "No command supplied." };
   history.push(value.trim()); historyIndex = history.length;
-  if (parsed.type === "clear") { output.replaceChildren(); return; }
-  if (parsed.type === "reset") { resetTraces(); result(parsed.command, "Trace progress cleared from this browser."); return; }
-  if (parsed.type === "text") { result(parsed.command, parsed.text); return; }
-  if (parsed.type === "unknown") { result(parsed.command, "command not found. Try 'help'.\nThe machine is less offended than it looks."); return; }
+  if (parsed.type === "clear") { output?.replaceChildren(); return { ok: true, command: parsed.command, text: "Console output cleared." }; }
+  if (parsed.type === "reset") { const text = "Trace progress cleared from this browser."; resetTraces(); result(parsed.command, text); return { ok: true, command: parsed.command, text }; }
+  if (parsed.type === "text") { result(parsed.command, parsed.text); return { ok: true, command: parsed.command, text: parsed.text }; }
+  if (parsed.type === "unknown") { const text = "command not found. Try 'help'.\nThe machine is less offended than it looks."; result(parsed.command, text); return { ok: false, command: parsed.command, text }; }
   if (parsed.command === "help") {
-    result(parsed.command, "experience · projects · inspect <project> · contact\nopen coast.jpg · clues · after-hours · reset clues · clear\nAliases: history, work, ls, man valia, whoami, pwd, cat coast.jpg\nTrace progress uses only local browser storage (valia.trace.v1) and is never transmitted."); return;
+    const text = "experience · projects · inspect <project> · contact\nopen coast.jpg · clues · after-hours · reset clues · clear\nAliases: history, work, ls, man valia, whoami, pwd, cat coast.jpg\nTrace progress uses only local browser storage (valia.trace.v1) and is never transmitted.";
+    result(parsed.command, text); return { ok: true, command: parsed.command, text };
   }
   if (parsed.command === "clues") {
     const state = clueState(readTraces());
-    result(parsed.command, state.complete ? "4/4 traces found. Continue to /after-hours.html" : `${state.found.length}/4 traces found. ${state.remaining} remain.`, state.complete ? "/after-hours.html" : undefined); return;
+    const text = state.complete ? "4/4 traces found. Continue to /after-hours.html" : `${state.found.length}/4 traces found. ${state.remaining} remain.`;
+    const href = state.complete ? "/after-hours.html" : undefined;
+    result(parsed.command, text, href); return { ok: true, command: parsed.command, text, href };
   }
   const route = ROUTES[parsed.command];
-  if (route) result(parsed.command, route[1], route[0]);
+  if (route) { result(parsed.command, route[1], route[0]); return { ok: true, command: parsed.command, text: route[1], href: route[0] }; }
 }
 
 form?.addEventListener("submit", event => { event.preventDefault(); execute(input.value); input.value = ""; });
