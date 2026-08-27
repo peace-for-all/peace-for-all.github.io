@@ -4,6 +4,7 @@ const ROUTES = {
   "about": ["/#about", "I like difficult problems, real ownership, and systems people can trust."],
   "experience": ["/#experience", "10+ years · monitoring · backend · automation · data · Android · production systems"],
   "projects": ["/#projects", "Four case files: VoiceGuides, review-system, Earned, and EcoWatch."],
+  "rehearse hello": ["/#rehearse", "No problem statement required. Pick a familiar kind of mess."],
   "inspect voiceguides": ["/case-studies/voiceguides.html", "Opening VOICEGUIDES(1)…"],
   "inspect review-system": ["/case-studies/review-response.html", "Opening REVIEW-SYSTEM(1)…"],
   "inspect earned": ["/case-studies/earned.html", "Opening EARNED(1)…"],
@@ -71,7 +72,7 @@ export function execute(value) {
   if (parsed.type === "text") { result(parsed.command, parsed.text); return { ok: true, command: parsed.command, text: parsed.text }; }
   if (parsed.type === "unknown") { const text = "command not found. Try 'help'.\nThe machine is less offended than it looks."; result(parsed.command, text); return { ok: false, command: parsed.command, text }; }
   if (parsed.command === "help") {
-    const text = "experience · projects · inspect <project> · contact\nopen coast.jpg · clues · after-hours · reset clues · clear\nAliases: history, work, ls, man valia, whoami, pwd, cat coast.jpg\nTrace progress uses only local browser storage (valia.trace.v1) and is never transmitted.";
+    const text = "experience · projects · rehearse hello · inspect <project> · contact\nopen coast.jpg · clues · after-hours · reset clues · clear\nAliases: history, work, ls, man valia, whoami, pwd, cat coast.jpg\nTrace progress uses only local browser storage (valia.trace.v1) and is never transmitted.";
     result(parsed.command, text); return { ok: true, command: parsed.command, text };
   }
   if (parsed.command === "clues") {

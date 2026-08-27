@@ -1,5 +1,5 @@
 export const TRACE_KEY = "valia.trace.v1";
-export const COMMANDS = ["help","about","experience","projects","inspect voiceguides","inspect review-system","inspect earned","inspect ecowatch","contact","open coast.jpg","clues","after-hours","reset clues","clear"];
+export const COMMANDS = ["help","about","experience","projects","rehearse hello","inspect voiceguides","inspect review-system","inspect earned","inspect ecowatch","contact","open coast.jpg","clues","after-hours","reset clues","clear"];
 const ALIASES = new Map([["man valia","help"],["whoami","about"],["history","experience"],["work","projects"],["ls","projects"],["cat coast.jpg","open coast.jpg"]]);
 export function normalize(input){return String(input??"").trim().toLowerCase().replace(/\s+/g," ");}
 export function parse(input){const raw=normalize(input);if(!raw)return{type:"empty",command:""};if(raw==="pwd")return{type:"text",command:raw,text:"/home/valia/between-disciplines"};const command=ALIASES.get(raw)||raw.replace(/^projects --short$/,"projects").replace(/^experience --signal$/,"experience");if(!COMMANDS.includes(command))return{type:"unknown",command:raw};if(command==="clear")return{type:"clear",command};if(command==="reset clues")return{type:"reset",command};return{type:"command",command};}
