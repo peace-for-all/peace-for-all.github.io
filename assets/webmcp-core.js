@@ -25,6 +25,13 @@ export const PROJECTS = [
     evidence: "Production LLM evaluation with immutable feedback provenance, calibration, bounded benchmarking, and a human controlling every public write.",
   },
   {
+    id: "controlcenter",
+    title: "Agent-governance harness",
+    url: "/case-studies/controlcenter.html",
+    focus: ["backend", "production", "reliability", "automation", "human-in-the-loop"],
+    evidence: "A persistent mission loop with observable claims, admissible evidence, bounded workers, independent review, and human authority gates.",
+  },
+  {
     id: "earned",
     title: "Earned",
     url: "/case-studies/earned.html",
