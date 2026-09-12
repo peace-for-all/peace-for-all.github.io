@@ -32,13 +32,6 @@ export const PROJECTS = [
     evidence: "A persistent mission loop with observable claims, admissible evidence, bounded workers, independent review, and human authority gates.",
   },
   {
-    id: "news-snr",
-    title: "Public Discourse Observatory",
-    url: "/case-studies/news-snr.html",
-    focus: ["backend", "data", "reliability", "human-in-the-loop"],
-    evidence: "A research pipeline with immutable observations, explainable similarity, bounded statistics, and live collection gated by governance.",
-  },
-  {
     id: "earned",
     title: "Earned",
     url: "/case-studies/earned.html",
