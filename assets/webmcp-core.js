@@ -22,7 +22,7 @@ export const PROJECTS = [
     title: "Review-response system",
     url: "/case-studies/review-response.html",
     focus: ["backend", "production", "reliability", "automation", "data", "human-in-the-loop"],
-    evidence: "Production Python workflow with observable failures, provenance, explicit write gates, and a human controlling every public response.",
+    evidence: "Production LLM evaluation with immutable feedback provenance, calibration, bounded benchmarking, and a human controlling every public write.",
   },
   {
     id: "earned",
